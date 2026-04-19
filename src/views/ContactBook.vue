@@ -55,6 +55,7 @@ import ContactCard from "@/components/ContactCard.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import ContactList from "@/components/ContactList.vue";
 import ContactService from "@/services/contact.service";
+import { toast } from "vue-sonner";
 
 export default {
   components: {
@@ -101,6 +102,7 @@ export default {
         this.contacts = await ContactService.getAll();
       } catch (error) {
         console.log(error);
+        toast.error("Đã có lỗi xảy ra khi tải danh bạ!");
       }
     },
     refreshList() {
@@ -108,12 +110,18 @@ export default {
       this.activeIndex = -1;
     },
     async removeAllContacts() {
+      if (this.contacts.length === 0) {
+        toast.info("Danh bạ hiện đang trống, không có liên hệ nào để xóa!");
+        return;
+      }
+
       if (confirm("Bạn muốn xóa tất cả Liên hệ?")) {
         try {
           await ContactService.deleteAll();
+          toast.success("Xóa tất cả liên hệ thành công!");
           this.refreshList();
         } catch (error) {
-          console.log(error);
+          toast.error("Đã có lỗi xảy ra!");
         }
       }
     },

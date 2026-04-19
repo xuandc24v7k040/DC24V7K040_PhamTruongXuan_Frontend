@@ -1,9 +1,11 @@
 <script>
 import AppHeader from "@/components/AppHeader.vue";
+import { Toaster } from "vue-sonner";
 
 export default {
   components: {
     AppHeader,
+    Toaster,
   },
 };
 </script>
@@ -14,6 +16,7 @@ export default {
     <div class="container mt-3">
       <router-view />
     </div>
+    <Toaster position="top-left" richColors />
   </div>
 </template>
 

@@ -42,6 +42,7 @@
     </div>
     <div class="form-group form-check">
       <input
+        id="favorite"
         name="favorite"
         type="checkbox"
         class="form-check-input"

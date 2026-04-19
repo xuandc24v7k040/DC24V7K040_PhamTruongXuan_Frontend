@@ -13,6 +13,7 @@
 <script>
 import ContactForm from "@/components/ContactForm.vue";
 import ContactService from "@/services/contact.service";
+import { toast } from "vue-sonner";
 
 export default {
   components: {
@@ -46,19 +47,22 @@ export default {
     async updateContact(data) {
       try {
         await ContactService.update(this.contact._id, data);
-        alert("Liên hệ được cập nhật thành công.");
+        toast.success("Cập nhật liên hệ thành công!");
         this.$router.push({ name: "contactbook" });
       } catch (error) {
         console.log(error);
+        toast.error("Lỗi cập nhật!");
       }
     },
     async deleteContact() {
       if (confirm("Bạn muốn xóa Liên hệ này?")) {
         try {
           await ContactService.delete(this.contact._id);
+          toast.info("Đã xóa liên hệ!");
           this.$router.push({ name: "contactbook" });
         } catch (error) {
           console.log(error);
+          toast.error("Lỗi khi xóa!");
         }
       }
     },
